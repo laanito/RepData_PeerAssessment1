@@ -304,19 +304,17 @@ t5 <- sqldf('
 Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
 
+
 ```r
-library("lattice")
-p <- xyplot(mean.steps ~ interval | factor(weektime), data=t5, 
-       type = 'l',
-       main="Average Number of Steps Taken 
-       \nAveraged Across All Weekday Days or Weekend Days",
-       xlab="5-Minute Interval (military time)",
-       ylab="Average Number of Steps Taken",
-       layout=c(1,2))
-print (p)    
+ggplot(t5, aes(x=interval, y=mean.steps, group=1)) + 
+        geom_line(color="violet") + 
+        facet_wrap(~ weektime, nrow=2, ncol=1) +
+        labs(x="Interval", y="Number of steps") +
+        scale_x_discrete(name="5-Minute Interval", breaks=c(0,500,1000,1500,2000,2500))+
+        theme_bw()
 ```
 
-![](PA1_complete_files/figure-html/panel_plot-1.png)<!-- -->
+![](PA1_complete_files/figure-html/panel_plot2-1.png)<!-- -->
 
 Observations:
 
